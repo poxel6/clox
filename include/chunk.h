@@ -2,7 +2,15 @@
 #include "main.h"
 #include "value.h"
 
-typedef enum { OP_RETURN, OP_CONSTANT } OpCode;
+typedef enum {
+    OP_CONSTANT,
+    OP_ADD,
+    OP_SUBTRACT,
+    OP_MULTIPLY,
+    OP_DEVIDE,
+    OP_NEGATE,
+    OP_RETURN
+} OpCode;
 
 typedef struct {
     u32 count;
