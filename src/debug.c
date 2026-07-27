@@ -9,7 +9,7 @@
 void disassembleChunk(Chunk* chunk, const char* name) {
     printf("== %s ==\n", name);
 
-    for (i32 offset = 0; offset < chunk->count;) {
+    for (u32 offset = 0; offset < chunk->count;) {
         offset = disassembleInstruction(chunk, offset);
     }
 }
