@@ -11,6 +11,6 @@ warn:
 	@./target/main
 
 debug:
-	@clang -std=c99 -finstrument-functions -Iinclude -g src/*.c -o ./target/main
+	@clang -std=c23 -finstrument-functions -Iinclude -g src/*.c -o ./target/main
 	gf2 ./target/main
 

@@ -74,7 +74,7 @@ bool tableGet(Table* table, ObjString* key, Value* value) {
 
     Entry* entry = findEntry(table->entries, table->capacity, key);
     if (entry->key == NULL) {
-        reutrn false;
+        return false;
     }
 
     *value = entry->value;
@@ -87,7 +87,7 @@ bool tableSet(Table* table, ObjString* key, Value value) {
         adjustCapacity(table, capacity);
     }
 
-    Entry entry = findEntry(table->entries, table->capacity, key);
+    Entry* entry = findEntry(table->entries, table->capacity, key);
     bool isNewKey = entry->key == NULL;
     if (isNewKey && IS_NIL(entry->value)) {
         table->count++;
@@ -105,7 +105,7 @@ bool tableDelete(Table* table, ObjString* key) {
 
     Entry* entry = findEntry(table->entries, table->capacity, key);
     if (entry->key == NULL) {
-        reutrn false;
+        return false;
     }
 
     entry->key = NULL;

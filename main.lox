@@ -1,1 +1,3 @@
-"str" + "in" + "g!"
+var hello = "Hello, World!";
+var str = "str" + "in" + "g!";
+print hello + "\n" + str;
