@@ -1,3 +1,5 @@
-var hello = "Hello, World!";
-var str = "str" + "in" + "g!";
-print hello + "\n" + str;
+{
+	var localVariable = "This is local";
+	// var localVariable = "can't have two local variables with the same name.";
+	print localVariable;
+}

@@ -1,6 +1,6 @@
 WARNING_FLAGS=-Wall -Wextra -Wshadow -Wconversion -Wfloat-equal -Wno-unused-const-variable -Wno-sign-conversion
-default: build
-	@clang -std=c23 -Iinclude src/*.c -o ./target/main
+default:
+	@clang -std=c23 -lc -Iinclude src/*.c -o ./target/main
 	@./target/main ./main.lox
 
 build:
@@ -12,5 +12,5 @@ warn:
 
 debug:
 	@clang -std=c23 -finstrument-functions -Iinclude -g src/*.c -o ./target/main
-	gf2 ./target/main
+	gf2 ./target/main ./examples/basics.lox
 

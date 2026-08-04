@@ -1,16 +1,15 @@
 
-#include "debug.h"
-
 #include <stdio.h>
 
 #include "chunk.h"
+#include "debug.h"
 #include "main.h"
 #include "value.h"
 
 void disassembleChunk(Chunk* chunk, const char* name) {
     printf("== %s ==\n", name);
 
-    for (u32 offset = 0; offset < chunk->count;) {
+    for (i32 offset = 0; offset < (i32) chunk->count;) {
         offset = disassembleInstruction(chunk, offset);
     }
 }
@@ -18,6 +17,12 @@ void disassembleChunk(Chunk* chunk, const char* name) {
 static i32 simpleInstruction(const char* name, i32 offset) {
     printf("%s\n", name);
     return offset + 1;
+}
+
+static i32 byteInstruction(const char* name, Chunk* chunk, i32 offset) {
+	u8 slot = chunk->code[offset + 1];
+	printf("%-16s %4d\n", name, slot);
+	return offset + 2;
 }
 
 static i32 constantInstruciton(const char* name, Chunk* chunk, i32 offset) {
@@ -45,6 +50,10 @@ i32 disassembleInstruction(Chunk* chunk, i32 offset) {
             return simpleInstruction("OP_TRUE", offset);
         case OP_POP:
             return simpleInstruction("OP_POP", offset);
+        case OP_GET_LOCAL:
+            return byteInstruction("OP_GET_LOCAL", chunk, offset);
+        case OP_SET_LOCAL:
+            return byteInstruction("OP_SET_LOCAL", chunk, offset);
         case OP_GET_GLOBAL:
             return constantInstruciton("OP_GET_GLOBAL", chunk, offset);
         case OP_DEFINE_GLOBAL:
