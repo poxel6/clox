@@ -1,3 +1,5 @@
+#include "vm.h"
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,7 +11,6 @@
 #include "memory.h"
 #include "object.h"
 #include "value.h"
-#include "vm.h"
 
 VM vm;
 
@@ -24,7 +25,7 @@ static void runtimeError(const char* format, ...) {
     va_end(args);
     fputs("\n", stderr);
 
-    size_t instruction = vm.ip - vm.chunk->code - 1;
+    i64 instruction = vm.ip - vm.chunk->code - 1;
     u32 line = vm.chunk->lines[instruction];
     fprintf(stderr, "[line %d] in script\n", line);
     resetStack();
@@ -78,6 +79,7 @@ static void concatenate() {
 static InterpretResult run() {
 #define READ_BYTE() (*vm.ip++)
 #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
+#define READ_SHORT() (vm.ip += 2, (u16)((vm.ip[-2] << 8) | vm.ip[-1]))
 #define READ_STRING() AS_STRING(READ_CONSTANT())
 #define BINARY_OP(valueType, op)                          \
     do {                                                  \
@@ -204,12 +206,30 @@ static InterpretResult run() {
                 printValue(pop());
                 printf("\n");
                 break;
+            case OP_JUMP: {
+                u16 offset = READ_SHORT();
+                vm.ip += offset;
+                break;
+            }
+            case OP_JUMP_IF_FALSE: {
+                u16 offset = READ_SHORT();
+                if (isFalsey(peek(0))) {
+                    vm.ip += offset;
+                }
+                break;
+            }
+            case OP_LOOP: {
+                u16 offset = READ_SHORT();
+                vm.ip -= offset;
+                break;
+            }
             case OP_RETURN:
                 return INTERPRET_OK;
         }
     }
 
 #undef READ_BYTE
+#undef READ_SHORT
 #undef READ_CONSTANT
 #undef READ_STRING
 #undef BINARY_OP

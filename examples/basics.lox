@@ -1,25 +1,30 @@
 // This is a comment
 // Lox doesn't support multiline comments yet.
+// Every statement should end in a ';' in Lox.
 
-// == TYPES == 
+// == TYPES ==
+print "";
+print "== TYPES ==";
 // This is a string in Lox.
 // Lox only supports '"' for strings.
-"Hello, World!";
+print "Hello, World!";
 
 // This is a number in Lox
 // Lox uses double percision floating points for all numbers.
-69;
-420.0;
-3.1415923565;
+print 69;
+print 420.0;
+print 3.1415923565;
 
 // Lox supports boolean as well
-true;
-false;
+print true;
+print false;
 
 // And null/undefined is nil in Lox.
-nil;
+print nil;
 
-// == VARIABLES == 
+// == VARIABLES ==
+print "";
+print "== VARIABLES ==";
 // This is a variable in Lox
 var myString = "hello world";
 var myNumber = 69 + 420;
@@ -30,10 +35,11 @@ var nilVariable;
 
 var complexArithmatic = (1 + (2 + 3 * 4) / 2);
 
+// scopes
 {
-	var localVariable = "This is local";
-	// var localVariable = "This is illegal"; // Gives a compile time error.
-	print localVariable;
+    var localVariable = "This is local";
+    // var localVariable = "This is illegal"; // Gives a compile time error.
+    print localVariable;
 }
 
 // `print` is a builtin statement;
@@ -43,7 +49,55 @@ print myString;
 // You can wrap print arguments in parenthesis.
 print(complexArithmatic);
 
+// == LOGICAL OPERATORS ==
+print "";
+print "== LOGICAL OPERATORS ==";
+// Lox has and 'and' operator.
+var thisIsAnd = true and false;
+print thisIsAnd;
+
+// Lox has or 'or' operator
+var thisIsOr = true or false;
+print thisIsOr;
+
+// Lox has not '!' operator
+var thisIsNot = !true;
+print thisIsNot;
+
+// == CONTROL FLOW ==
+print "";
+print "== CONTROL FLOW ==";
+// Lox has if-else statement
+var condition = true;
+if (condition) {
+    print "if statement: true";
+} else {
+    print "if statement: false";
+}
+
+// Lox has while loops
+var index = 0;
+while (index < 2) {
+    print "while loop";
+    index = index + 1;
+}
+
+// Lox for while loops.
+for (var i = 0; i < 2; i = i + 1) {
+    print "for loop";
+}
+
+// You can nest loops.
+for (var i = 0; i < 2; i = i + 1) {
+    print "first nested for loop.";
+    for (var j = 2; j > 0; j = j - 1) {
+	print "second nested for loop.";
+    }
+}
+
 // == FUNCTIONS ==
+print "";
+print "== FUNCTIONS ==";
 // This is how to define a functino in Lox.
 // fun myFunction(myParameter) {
 // 	return "Hello " + myParameter;

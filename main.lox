@@ -1,5 +1,10 @@
-{
-	var localVariable = "This is local";
-	// var localVariable = "can't have two local variables with the same name.";
-	print localVariable;
+if (true) {
+   print "Hello, true";
+   for (var i = 0; i < 2; i = i + 1) {
+       for (var j = 2; j > 0; j = j - 1) {
+       	   print "Hello";
+       }
+   }
+} else {
+   print "false, World!";
 }
